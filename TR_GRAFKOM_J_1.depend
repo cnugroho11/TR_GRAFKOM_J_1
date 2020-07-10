@@ -1,7 +1,6 @@
 # depslib dependency file v1.0
-1594358941 source:c:\users\cnjes\documents\code\tr_grafkom_j_1\main.cpp
+1594359050 source:c:\users\cnjes\documents\code\tr_grafkom_j_1\main.cpp
 	<windows.h>
-	<GLUT/glut.h>
 	<GL/glut.h>
 	<stdlib.h>
 
