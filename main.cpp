@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     return 0;
 }
 
-
+//ini comment
 void gedung_baris_depan() {
     //gedung tengah
     glColor3f(1.0, 0.65, 0.0);
