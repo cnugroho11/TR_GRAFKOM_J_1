@@ -4,6 +4,32 @@
 #include <math.h>
 #define M_PI 3.14
 
+float d=40, b=40, px1, py1, mab, mcd, cab, ccd;
+int st=1;
+
+void timer(int){
+    glutPostRedisplay();
+    glutTimerFunc(1000/30,timer,0);
+    switch(st)
+    {
+    case 1:
+        if(d<45){
+            d+=0.15;
+            b-=0.15;
+        }
+        else
+            st=-1;
+        break;
+    case -1:
+        if(d>35){
+            d-=0.15;
+            b+=0.15;
+        }
+        else
+            st=1;
+        break;
+    }
+}
 void init(void);
 void tampil(void);
 void keyboard(unsigned char, int, int);
@@ -18,7 +44,7 @@ float ydiff = 0.0f;
 bool mouseDown = false;
 int is_depth;
 
-void init(void) {
+void init(void){
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     /*
@@ -32,6 +58,7 @@ void init(void) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //end
+	glPointSize(7);
     is_depth = 1;
     glMatrixMode(GL_MODELVIEW);
     glViewport(0, 0, 800, 600);
@@ -48,6 +75,7 @@ int main(int argc, char** argv){
     glutCreateWindow("TR GRAFKOM - 672018039 672018054");
     init();
     glutDisplayFunc(tampil);
+    glutTimerFunc(0,timer,0);
     glutKeyboardFunc(keyboard);
     glutReshapeFunc(ukuran);
     glutMouseFunc(mouse);
@@ -57,9 +85,9 @@ int main(int argc, char** argv){
     return 0;
 }
 
-void gedung_baris_depan() {
+void gedung_baris_depan(){
     //gedung tengah
-    glColor3f(1.0, 0.65, 0.0);
+    glColor3f(0.98, 0.922, 0.843);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, -5.0);
     glVertex3f(10.0, 0.0, -5.0);
@@ -67,7 +95,6 @@ void gedung_baris_depan() {
     glVertex3f(-10.0, 30.0, -5.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, 5.0);
     glVertex3f(10.0, 0.0, 5.0);
@@ -75,7 +102,6 @@ void gedung_baris_depan() {
     glVertex3f(-10.0, 30.0, 5.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(10.0, 0.0, 5.0);
     glVertex3f(10.0, 0.0, -5.0);
@@ -83,7 +109,6 @@ void gedung_baris_depan() {
     glVertex3f(10.0, 30.0, 5.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, 5.0);
     glVertex3f(-10.0, 0.0, -5.0);
@@ -91,7 +116,6 @@ void gedung_baris_depan() {
     glVertex3f(-10.0, 30.0, 5.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, 5.0);
     glVertex3f(-10.0, 0.0, -5.0);
@@ -99,7 +123,6 @@ void gedung_baris_depan() {
     glVertex3f(10.0, 0.0, 5.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 30.0, 5.0);
     glVertex3f(-10.0, 30.0, -5.0);
@@ -109,7 +132,7 @@ void gedung_baris_depan() {
     //gedung tengah end
 
     //gedung kiri
-    glColor3f(1.0, 0.65, 0.7);
+    glColor3f(0.98, 0.922, 0.843);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, 0.0);
     glVertex3f(-35.0, 0.0, 0.0);
@@ -117,7 +140,6 @@ void gedung_baris_depan() {
     glVertex3f(-10.0, 30.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, 10.0);
     glVertex3f(-35.0, 0.0, 10.0);
@@ -125,7 +147,6 @@ void gedung_baris_depan() {
     glVertex3f(-10.0, 30.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, 0.0);
     glVertex3f(-35.0, 0.0, 0.0);
@@ -133,7 +154,6 @@ void gedung_baris_depan() {
     glVertex3f(-10.0, 0.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 30.0, 0.0);
     glVertex3f(-35.0, 30.0, 0.0);
@@ -141,7 +161,6 @@ void gedung_baris_depan() {
     glVertex3f(-10.0, 30.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(-35.0, 0.0, 10.0);
     glVertex3f(-35.0, 0.0, 0.0);
@@ -149,7 +168,6 @@ void gedung_baris_depan() {
     glVertex3f(-35.0, 30.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.65, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(-10.0, 0.0, 10.0);
     glVertex3f(-10.0, 0.0, 0.0);
@@ -159,7 +177,7 @@ void gedung_baris_depan() {
     //gedung kiri end
 
     //gedung kanan
-    glColor3f(1.0, 0.1, 0.7);
+    glColor3f(0.98, 0.922, 0.843);
     glBegin(GL_QUADS);
     glVertex3f(10.0, 0.0, 0.0);
     glVertex3f(35.0, 0.0, 0.0);
@@ -167,7 +185,6 @@ void gedung_baris_depan() {
     glVertex3f(10.0, 30.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.1, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(10.0, 0.0, 10.0);
     glVertex3f(35.0, 0.0, 10.0);
@@ -175,7 +192,6 @@ void gedung_baris_depan() {
     glVertex3f(10.0, 30.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.1, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(10.0, 0.0, 0.0);
     glVertex3f(35.0, 0.0, 0.0);
@@ -183,7 +199,6 @@ void gedung_baris_depan() {
     glVertex3f(10.0, 0.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.1, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(10.0, 30.0, 0.0);
     glVertex3f(35.0, 30.0, 0.0);
@@ -191,7 +206,6 @@ void gedung_baris_depan() {
     glVertex3f(10.0, 30.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.1, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(35.0, 0.0, 10.0);
     glVertex3f(35.0, 0.0, 0.0);
@@ -199,7 +213,6 @@ void gedung_baris_depan() {
     glVertex3f(35.0, 30.0, 10.0);
     glEnd();
 
-    glColor3f(1.0, 0.1, 0.7);
     glBegin(GL_QUADS);
     glVertex3f(10.0, 0.0, 10.0);
     glVertex3f(10.0, 0.0, 0.0);
@@ -211,7 +224,7 @@ void gedung_baris_depan() {
 
 void gedung_baris_2(){
     //gedung kiri
-    glColor3f(1.0, 0.0, 0.0);
+    glColor3f(0.98, 0.922, 0.843);
     glBegin(GL_QUADS);
     glVertex3f(-30.0, 0.0, 0.0);
     glVertex3f(-50.0, 0.0, 0.0);
@@ -219,7 +232,6 @@ void gedung_baris_2(){
     glVertex3f(-30.0, 33.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-30.0, 0.0, -13.0);
     glVertex3f(-50.0, 0.0, -13.0);
@@ -227,7 +239,6 @@ void gedung_baris_2(){
     glVertex3f(-30.0, 33.0, -13.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-30.0, 0.0, 0.0);
     glVertex3f(-30.0, 0.0, -13.0);
@@ -235,7 +246,6 @@ void gedung_baris_2(){
     glVertex3f(-30.0, 33.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-50.0, 0.0, 0.0);
     glVertex3f(-50.0, 0.0, -13.0);
@@ -243,7 +253,6 @@ void gedung_baris_2(){
     glVertex3f(-50.0, 33.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-30.0, 0.0, 0.0);
     glVertex3f(-50.0, 0.0, 0.0);
@@ -251,7 +260,6 @@ void gedung_baris_2(){
     glVertex3f(-30.0, 0.0, -13.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(-30.0, 33.0, 0.0);
     glVertex3f(-50.0, 33.0, 0.0);
@@ -261,7 +269,7 @@ void gedung_baris_2(){
     //gedung kiri end
 
     //gedung kanan
-    glColor3f(1.0, 0.0, 0.0);
+    glColor3f(0.98, 0.922, 0.843);
     glBegin(GL_QUADS);
     glVertex3f(30.0, 0.0, 0.0);
     glVertex3f(50.0, 0.0, 0.0);
@@ -269,7 +277,6 @@ void gedung_baris_2(){
     glVertex3f(30.0, 33.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(30.0, 0.0, -13.0);
     glVertex3f(50.0, 0.0, -13.0);
@@ -277,7 +284,6 @@ void gedung_baris_2(){
     glVertex3f(30.0, 33.0, -13.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(30.0, 0.0, 0.0);
     glVertex3f(30.0, 0.0, -13.0);
@@ -285,7 +291,6 @@ void gedung_baris_2(){
     glVertex3f(30.0, 33.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(50.0, 0.0, 0.0);
     glVertex3f(50.0, 0.0, -13.0);
@@ -293,7 +298,6 @@ void gedung_baris_2(){
     glVertex3f(50.0, 33.0, 0.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(30.0, 0.0, 0.0);
     glVertex3f(50.0, 0.0, 0.0);
@@ -301,7 +305,6 @@ void gedung_baris_2(){
     glVertex3f(30.0, 0.0, -13.0);
     glEnd();
 
-    glColor3f(1.0, 0.0, 0.0);
     glBegin(GL_QUADS);
     glVertex3f(30.0, 33.0, 0.0);
     glVertex3f(50.0, 33.0, 0.0);
@@ -314,7 +317,7 @@ void gedung_baris_2(){
 void gedung_setelah_depan(){
 
     //gedung tengah
-    glColor3f(1.0, 0.0, 0.0);
+    glColor3f(1.0, 0.98, 0.94);
     glBegin(GL_QUADS);
     glVertex3f(-6.0, 0.0, -25.0);
     glVertex3f(6.0, 0.0, -25.0);
@@ -359,7 +362,7 @@ void gedung_setelah_depan(){
     //gedung tengah end
 
     //kiri
-    glColor3f(1.0, 0.0, 1.0);
+    glColor3f(1.0, 0.98, 0.94);
     glBegin(GL_QUADS);
     glVertex3f(-26.0, 0.0, -25.0);
     glVertex3f(-6.0, 0.0, -25.0);
@@ -404,7 +407,7 @@ void gedung_setelah_depan(){
     //kiri end
 
     //kanan
-    glColor3f(1.0, 0.0, 1.0);
+    glColor3f(1.0, 0.98, 0.94);
     glBegin(GL_QUADS);
     glVertex3f(26.0, 0.0, -25.0);
     glVertex3f(6.0, 0.0, -25.0);
@@ -449,7 +452,7 @@ void gedung_setelah_depan(){
     //kanan end
 
     //menara kanan
-    glColor3f(1.0, 1.0, 0.0);
+    glColor3f(1.0, 0.98, 0.94);
     glBegin(GL_QUADS);
     glVertex3f(32.0, 0.0, -25.0);
     glVertex3f(27.0, 0.0, -25.0);
@@ -494,7 +497,7 @@ void gedung_setelah_depan(){
     //menara kanan end
 
     //menara kanan
-    glColor3f(1.0, 1.0, 0.0);
+    glColor3f(1.0, 0.98, 0.94);
     glBegin(GL_QUADS);
     glVertex3f(-32.0, 0.0, -25.0);
     glVertex3f(-27.0, 0.0, -25.0);
@@ -542,7 +545,7 @@ void gedung_setelah_depan(){
 void gedung_belakang_perkiraan(){
 
     //gedung belakang bagian tengah
-    glColor3f(0.0, 1.0, 0.0);
+    glColor3f(1.0, 0.98, 0.94);
     glBegin(GL_QUADS);
     glVertex3f(-20.0, 0.0, -50.0);
     glVertex3f(20.0, 0.0, -50.0);
@@ -1543,6 +1546,7 @@ void platform(){
 
 void gedung_tambahan(){
     //gedung
+    glColor3f(1.0, 0.98, 0.94);
     glBegin(GL_QUADS);
     glVertex3f(-25.0, 35.0, -80.0);
     glVertex3f(25.0, 35.0, -80.0);
@@ -1586,7 +1590,7 @@ void gedung_tambahan(){
     glEnd();
     //end
     //estetik kiri
-    glColor3f(1.0, 0.0, 1.0);
+    glColor3f(0.412, 0.412, 0.412);
     glBegin(GL_QUADS);
     glVertex3f(-25.0, 35.2, -88.5);
     glVertex3f(-20.0, 35.2, -88.5);
@@ -1656,7 +1660,7 @@ void gedung_tambahan(){
     glEnd();
     //end
     //estetik kanan
-    glColor3f(1.0, 0.0, 1.0);
+    glColor3f(0.412, 0.412, 0.412);
     glBegin(GL_QUADS);
     glVertex3f(25.0, 35.2, -88.5);
     glVertex3f(20.0, 35.2, -88.5);
@@ -1910,8 +1914,21 @@ void skyway(){
     glVertex3f(17.1, 30.1, -79.9);
     glVertex3f(14.0, 30.1, -79.9);
     glEnd();
+
+    mab=(-79.9+50.1)/(17.1+17.1);
+    mcd=(-79.9+50.1)/(-17.1-17.1);
+    cab=-50.1-(-17.1*mab);
+    ccd=-50.1-(17.1*mcd);
+    px1=(ccd-cab)/(mab-mcd);
+    py1=(mab*px1)+cab;
+
+    glColor3f(1, 1, 1);
+    glBegin(GL_POINTS);
+    glVertex3f(px1, 30.2, py1);
+    glEnd();
     //end
     //frame kiri
+    glColor3f(0.633, 0.633, 0.633);
     glBegin(GL_QUADS);
     glVertex3f(-17.1, 30.0, -50.1);
     glVertex3f(-17.1, 27.0, -50.1);
@@ -2210,8 +2227,132 @@ void loopPohon(){
     }
 }
 
-void tampil(void)
-{
+void bendera(){
+    glColor3f(1.0, 0.0, 0.0);
+    glBegin(GL_POLYGON);
+        glVertex3f(-5, 15, 30);
+        glVertex3f(0, 15, d-10);
+        glVertex3f(0, 8, d-10);
+        glVertex3f(-5, 8, 30);
+    glEnd();
+    glBegin(GL_POLYGON);
+        glVertex3f(0, 15, b-10);
+        glVertex3f(5, 15, 30);
+        glVertex3f(5, 8, 30);
+        glVertex3f(0, 8, b-10);
+    glEnd();
+    glBegin(GL_POLYGON);
+        glVertex3f(0, 15, b-10);
+        glVertex3f(5, 15, 30);
+        glVertex3f(5, 8, 30);
+        glVertex3f(0, 8, b-10);
+    glEnd();
+    //tiang kiri
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+    glVertex3f(-5.1, 0, 30);
+    glVertex3f(-4.8, 0, 30);
+    glVertex3f(-4.8, 0, 29);
+    glVertex3f(-5.1, 0, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(-5.1, 15, 30);
+    glVertex3f(-4.8, 15, 30);
+    glVertex3f(-4.8, 15, 29);
+    glVertex3f(-5.1, 15, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(-5.1, 15, 30);
+    glVertex3f(-4.8, 15, 30);
+    glVertex3f(-4.8, 15, 29);
+    glVertex3f(-5.1, 15, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(-4.8, 0, 30);
+    glVertex3f(-4.8, 15, 30);
+    glVertex3f(-4.8, 15, 29);
+    glVertex3f(-4.8, 0, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(-5.1, 0, 30);
+    glVertex3f(-5.1, 15, 30);
+    glVertex3f(-5.1, 15, 29);
+    glVertex3f(-5.1, 0, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(-5.1, 0, 30);
+    glVertex3f(-4.8, 0, 30);
+    glVertex3f(-4.8, 15, 30);
+    glVertex3f(-5.1, 15, 30);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(-5.1, 0, 29);
+    glVertex3f(-4.8, 0, 29);
+    glVertex3f(-4.8, 15, 29);
+    glVertex3f(-5.1, 15, 29);
+    glEnd();
+    //end
+
+    //tiang kanan
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+    glVertex3f(5.1, 0, 30);
+    glVertex3f(4.8, 0, 30);
+    glVertex3f(4.8, 0, 29);
+    glVertex3f(5.1, 0, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(5.1, 15, 30);
+    glVertex3f(4.8, 15, 30);
+    glVertex3f(4.8, 15, 29);
+    glVertex3f(5.1, 15, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(5.1, 15, 30);
+    glVertex3f(4.8, 15, 30);
+    glVertex3f(4.8, 15, 29);
+    glVertex3f(5.1, 15, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(4.8, 0, 30);
+    glVertex3f(4.8, 15, 30);
+    glVertex3f(4.8, 15, 29);
+    glVertex3f(4.8, 0, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(5.1, 0, 30);
+    glVertex3f(5.1, 15, 30);
+    glVertex3f(5.1, 15, 29);
+    glVertex3f(5.1, 0, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(5.1, 0, 30);
+    glVertex3f(4.8, 0, 30);
+    glVertex3f(4.8, 15, 30);
+    glVertex3f(5.1, 15, 30);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(5.1, 0, 29);
+    glVertex3f(4.8, 0, 29);
+    glVertex3f(4.8, 15, 29);
+    glVertex3f(5.1, 15, 29);
+    glEnd();
+    //end
+}
+
+void tampil(void){
     glPushMatrix();
 
     if (is_depth) {
@@ -2237,13 +2378,13 @@ void tampil(void)
     skyway();
     atap_setengah();
     cover_atap();
+    bendera();
 
     glPopMatrix();
     glutSwapBuffers();
 }
 
-
-void idle() {
+void idle(){
     if (!mouseDown) {
         xrot += 0.3f;
         yrot += 0.4f;
@@ -2251,7 +2392,7 @@ void idle() {
     glutPostRedisplay();
 }
 
-void mouse(int button, int state, int x, int y) {
+void mouse(int button, int state, int x, int y){
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         mouseDown = true;
         xdiff = x - yrot;
@@ -2260,7 +2401,7 @@ void mouse(int button, int state, int x, int y) {
     else mouseDown = false;
 }
 
-void mouseMotion(int x, int y) {
+void mouseMotion(int x, int y){
     if (mouseDown) {
         yrot = x - xdiff;
         xrot = y + ydiff;
