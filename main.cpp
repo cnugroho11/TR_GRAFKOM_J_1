@@ -47,11 +47,9 @@ int is_depth;
 void init(void){
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glMatrixMode(GL_PROJECTION);
-    /*
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHT0);
-    */
     glEnable(GL_DEPTH_TEST);
 
     //transparansi
